@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'screens/home.dart';
+import 'screens/open.dart';
+import 'screens/recruit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,54 +17,72 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const BottomNav(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class BottomNav extends StatefulWidget {
+  const BottomNav({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<BottomNav> createState() => _BottomNavState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _BottomNavState extends State<BottomNav> {
+  int _selectedIndex = 1;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  void _incrementCounter() {
+  final List<Widget> _widgetOptions = <Widget>[
+    HomePage(title: "title"),
+    RecruitPage(title: "title"),
+    RecruitPage(title: "title"),
+  ];
+
+  void _onItemTapped(int index) {
     setState(() {
-      _counter++;
+      _selectedIndex = index;
     });
   }
 
+  // 메인 위젯
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      body: SafeArea(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: '모집',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment),
+            label: '내 정보',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.lightGreen,
+        onTap: _onItemTapped,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    //해당 클래스가 호출되었을떄
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
