@@ -55,20 +55,23 @@ class _RecruitPageState extends State<RecruitPage> {
               //         borderRadius: BorderRadius.circular(15)),
               //   ),
               // )
-              // Padding(
-              //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              //   child: ListView.builder(
-              //       scrollDirection: Axis.vertical,
-              //       itemCount: items == null ? 0 : items.length,
-              //       itemBuilder: ((context, index) {
-              //         var itemDatas = items![index];
-              //         return SizedBox(
-              //           height: 100,
-              //           child: Card(),
-              //         );
-              //       })),
-              // )
-              
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: items! == null ? 0 : items.length,
+                    itemBuilder: ((context, index) {
+                      var itemDatas = items![index];
+                      return SizedBox(
+                        height: 100,
+                        child: Card(
+                          elevation: 3,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 7),
+                        ),
+                      );
+                    })),
+              )
             ],
           ),
         ),
